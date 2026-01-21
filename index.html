@@ -1,103 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>SV JOB AGENCY</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<style>
-body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:#f4f6f8;
-}
-header{
-  background:#0a3d62;
-  color:#fff;
-  padding:20px;
-  text-align:center;
-}
-.container{
-  max-width:420px;
-  margin:30px auto;
-  background:#fff;
-  padding:20px;
-  border-radius:10px;
-  box-shadow:0 0 10px rgba(0,0,0,0.1);
-}
-button{
-  width:100%;
-  padding:12px;
-  margin-top:15px;
-  background:#0a3d62;
-  color:#fff;
-  border:none;
-  border-radius:6px;
-  font-size:16px;
-}
-input,select{
-  width:100%;
-  padding:10px;
-  margin-top:10px;
-}
-footer{
-  text-align:center;
-  padding:10px;
-  font-size:12px;
-  color:#777;
-}
-</style>
+  <title>SV JOB AGENCY</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      padding: 20px;
+    }
+    .card {
+      background: #fff;
+      padding: 20px;
+      max-width: 400px;
+      margin: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #msg {
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
 </head>
-
 <body>
 
-<header>
-  <h1>SV JOB AGENCY</h1>
-  <p>Your Career, Our Responsibility</p>
-</header>
+<div class="card">
+  <h2>SV JOB AGENCY</h2>
 
-<!-- HOME -->
-<div class="container" id="home">
-  <h2>Welcome</h2>
-  <button onclick="openForm()">Apply for a Job</button>
+  <input type="text" id="name" placeholder="Full Name" required>
+  <input type="number" id="mobile" placeholder="Mobile Number" required>
+  <input type="email" id="email" placeholder="Email ID" required>
+  <input type="text" id="qualification" placeholder="Qualification" required>
+
+  <button onclick="applyJob()">Apply for Job</button>
+
+  <div id="msg"></div>
 </div>
-
-<!-- FORM -->
-<div class="container" id="form" style="display:none;">
-  <h2>Apply for a Job</h2>
-
-  <input type="text" placeholder="Full Name" required>
-  <input type="tel" placeholder="Mobile Number" required>
-
-  <select>
-    <option>Qualification</option>
-    <option>10th</option>
-    <option>Inter</option>
-    <option>Degree</option>
-    <option>B.Tech</option>
-  </select>
-
-  <select>
-    <option>Experience</option>
-    <option>Fresher</option>
-    <option>1 Year</option>
-    <option>2+ Years</option>
-  </select>
-
-  <button onclick="submitForm()">Submit</button>
-</div>
-
-<footer>
-  © 2026 SV JOB AGENCY
-</footer>
 
 <script>
-function openForm(){
-  document.getElementById("home").style.display="none";
-  document.getElementById("form").style.display="block";
-}
-function submitForm(){
-  alert("Application submitted successfully!");
+function applyJob() {
+  var data = {
+    name: document.getElementById("name").value,
+    mobile: document.getElementById("mobile").value,
+    email: document.getElementById("email").value,
+    qualification: document.getElementById("qualification").value
+  };
+
+  fetch("https://script.google.com/macros/s/AKfycbzH5yULMnuG9Y2ywrJIj3CsQwraTxuP-lRE4OH5gIRe4DKuhY8ESvPKXRnCk2GOGRETmA/exec", {
+    method: "POST",
+    body: JSON.stringify(data)
+  })
+  .then(res => res.json())
+  .then(res => {
+    document.getElementById("msg").innerHTML = "✅ Applied Successfully!";
+  })
+  .catch(err => {
+    document.getElementById("msg").innerHTML = "❌ Error! Try again.";
+  });
 }
 </script>
 
