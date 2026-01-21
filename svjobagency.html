@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SV JOB AGENCY</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #0a3d62;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      max-width: 420px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+    button {
+      background: #28a745;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .home-btn {
+      background: #0a3d62;
+    }
+    .note {
+      font-size: 12px;
+      color: #555;
+      text-align: center;
+      margin-top: 15px;
+    }
+    footer {
+      text-align: center;
+      font-size: 12px;
+      color: #777;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>SV JOB AGENCY</h1>
+  <p>Your Career, Our Responsibility</p>
+</header>
+
+<!-- HOME SECTION -->
+<div class="container" id="home">
+  <h2>Welcome</h2>
+  <button class="home-btn" onclick="openForm()">Apply for a Job</button>
+</div>
+
+<!-- JOB APPLY FORM -->
+<div class="container" id="jobForm" style="display:none;">
+  <h2>Apply for a Job</h2>
+
+  <input type="text" id="name" placeholder="Full Name" required>
+  <input type="tel" id="mobile" placeholder="Mobile Number" required>
+  <input type="email" id="email" placeholder="Email (optional)">
+  
+  <select id="qualification" required>
+    <option value="">Select Qualification</option>
+    <option>10th</option>
+    <option>Inter</option>
+    <option>Degree</option>
+    <option>Diploma</option>
+    <option>B.Tech</option>
+    <option>Other</option>
+  </select>
+
+  <select id="experience" required>
+    <option value="">Experience</option>
+    <option>Fresher</option>
+    <option>1 Year</option>
+    <option>2 Years</option>
+    <option>3+ Years</option>
+  </select>
+
+  <select id="jobType" required>
+    <option value="">Job Type</option>
+    <option>IT</option>
+    <option>Non‑IT</option>
+    <option>Abroad</option>
+    <option>Local</option>
+  </select>
+
+  <input type="text" id="location" placeholder="Preferred Location">
+
+  <button onclick="submitForm()">Submit Application</button>
+
+  <div class="note">
+    Your details will be reviewed by SV Job Agency.
+  </div>
+</div>
+
+<footer>
+  © 2026 SV JOB AGENCY
+</footer>
+
+<script>
+function openForm() {
+  document.getElementById("home").style.display = "none";
+  document.getElementById("jobForm").style.display = "block";
+}
+
+function submitForm() {
+  const name = document.getElementById("name").value;
+  const mobile = document.getElementById("mobile").value;
+
+  if (name === "" || mobile === "") {
+    alert("Please fill required details");
+    return;
+  }
+
+  alert("✅ Application submitted successfully!\nSV Job Agency will contact you.");
+  
+  // Optional reset
+  document.getElementById("jobForm").reset;
+}
+</script>
+
+</body>
+</html>
