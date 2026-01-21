@@ -1,80 +1,158 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>SV JOB AGENCY</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f2f2f2;
-      padding: 20px;
-    }
-    .card {
-      background: #fff;
-      padding: 20px;
-      max-width: 400px;
-      margin: auto;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    h2 {
-      text-align: center;
-    }
-    input, button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      font-size: 16px;
-    }
-    button {
-      background: #007bff;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    #msg {
-      text-align: center;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>SV JOB AGENCY</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:#fff;
+}
+
+/* COMMON */
+.container{
+  max-width:400px;
+  margin:60px auto;
+  background:#fff;
+  color:#000;
+  padding:25px;
+  border-radius:10px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+h2{text-align:center;margin-bottom:20px;}
+input,select,button{
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border-radius:6px;
+  border:1px solid #ccc;
+  font-size:16px;
+}
+button{
+  background:#28a745;
+  color:#fff;
+  border:none;
+  cursor:pointer;
+}
+button:hover{background:#218838;}
+.hidden{display:none;}
+
+/* POPUP */
+.popup{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,0.6);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+.popup-box{
+  background:#fff;
+  color:#000;
+  padding:30px;
+  border-radius:10px;
+  text-align:center;
+  width:80%;
+  max-width:300px;
+}
+
+/* WHATSAPP BUTTON */
+.whatsapp{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#25D366;
+  color:#fff;
+  padding:14px 18px;
+  border-radius:50px;
+  text-decoration:none;
+  font-weight:bold;
+}
+</style>
 </head>
+
 <body>
 
-<div class="card">
+<!-- PAGE 1 -->
+<div class="container" id="page1">
   <h2>SV JOB AGENCY</h2>
-
-  <input type="text" id="name" placeholder="Full Name" required>
-  <input type="number" id="mobile" placeholder="Mobile Number" required>
-  <input type="email" id="email" placeholder="Email ID" required>
-  <input type="text" id="qualification" placeholder="Qualification" required>
-
-  <button onclick="applyJob()">Apply for Job</button>
-
-  <div id="msg"></div>
+  <p style="text-align:center;">Trusted Job Consultancy</p>
+  <button onclick="goToForm()">Apply for a Job</button>
 </div>
 
-<script>
-function applyJob() {
-  var data = {
-    name: document.getElementById("name").value,
-    mobile: document.getElementById("mobile").value,
-    email: document.getElementById("email").value,
-    qualification: document.getElementById("qualification").value
-  };
+<!-- PAGE 2 -->
+<div class="container hidden" id="page2">
+  <h2>Job Application</h2>
+  <input id="name" placeholder="Full Name" required>
+  <input id="mobile" placeholder="Mobile Number" required>
+  <input id="email" placeholder="Email">
+  <select id="qualification">
+    <option value="">Select Qualification</option>
+    <option>10th</option>
+    <option>Inter</option>
+    <option>Degree</option>
+    <option>Any</option>
+  </select>
+  <button onclick="submitForm()">Submit</button>
+</div>
 
-  fetch("https://script.google.com/macros/s/AKfycbzH5yULMnuG9Y2ywrJIj3CsQwraTxuP-lRE4OH5gIRe4DKuhY8ESvPKXRnCk2GOGRETmA/exec", {
-    method: "POST",
-    body: JSON.stringify(data)
-  })
-  .then(res => res.json())
-  .then(res => {
-    document.getElementById("msg").innerHTML = "✅ Applied Successfully!";
-  })
-  .catch(err => {
-    document.getElementById("msg").innerHTML = "❌ Error! Try again.";
+<!-- PAGE 3 (SUCCESS handled via popup) -->
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+  <div class="popup-box">
+    <h3>✅ Application Submitted</h3>
+    <p>Our team will contact you soon.</p>
+    <button onclick="closePopup()">OK</button>
+  </div>
+</div>
+
+<!-- WHATSAPP BUTTON -->
+<a class="whatsapp" 
+   href="https://wa.me/919703760912" 
+   target="_blank">
+  WhatsApp
+</a>
+
+<script>
+function goToForm(){
+  document.getElementById("page1").classList.add("hidden");
+  document.getElementById("page2").classList.remove("hidden");
+}
+
+function submitForm(){
+  var name=document.getElementById("name").value;
+  var mobile=document.getElementById("mobile").value;
+  var email=document.getElementById("email").value;
+  var qualification=document.getElementById("qualification").value;
+
+  if(name==""||mobile==""){
+    alert("Please fill required fields");
+    return;
+  }
+
+  /* GOOGLE APPS SCRIPT URL HERE */
+  fetch("https://script.google.com/macros/s/AKfycbzH5yULMnuG9Y2ywrJIj3CsQwraTxuP-lRE4OH5gIRe4DKuhY8ESvPKXRnCk2GOGRETmA/exec",{
+    method:"POST",
+    body:JSON.stringify({
+      name:name,
+      mobile:mobile,
+      email:email,
+      qualification:qualification
+    })
   });
+
+  document.getElementById("popup").style.display="flex";
+}
+
+function closePopup(){
+  document.getElementById("popup").style.display="none";
+  location.reload();
 }
 </script>
 
